@@ -15,9 +15,9 @@ vector <char> Color;
 double f = INFINITY;
 
 void BFS(vector < list <int> > &G , int s) {
-    Dis.resize(G.size()+1);
-    Par.resize(G.size()+1);
-    Color.resize(G.size()+1);
+    Dis.resize(G.size());
+    Par.resize(G.size());
+    Color.resize(G.size());
 
     // initialisation
     for(int i=1;i<G.size();i++) {
@@ -43,7 +43,7 @@ void BFS(vector < list <int> > &G , int s) {
         for(list <int> :: iterator it=G[p].begin();it!=G[p].end();it++) {
             if(Color[*it] == 'W') { // chk whether node is visited or not
                 Par[*it] = p; // set parent of current node to previous one
-                Dis[*it] = Dis[s] + 1; // inc dis by 1
+                Dis[*it] = Dis[p] + 1; // inc dis by 1
                 Q.push(*it); // push tthe node in queue
                 Color[*it] = 'G'; // mark the corresponding color
                 }
@@ -81,9 +81,11 @@ int main() {
 
     BFS(G,1);
     printPath(1,5);
-
-
-
+    cout << endl;
+    
+    // to print level of a graph 
+    for(int i=1;i<Dis.size();i++) cout << Dis[i] << " ";
+    cout << endl;
 
 
     // to print adjacency list
